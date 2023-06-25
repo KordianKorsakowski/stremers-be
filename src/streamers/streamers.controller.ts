@@ -1,9 +1,10 @@
 import { Controller, Get, Post, Put, Body, Param, Query } from '@nestjs/common';
+import { CreateStreamerDto } from './dtos/create-streamer.dto';
 
 @Controller('streamers')
 export class StreamersController {
   @Post()
-  createStreamer(@Body() body: any) {
+  createStreamer(@Body() body: CreateStreamerDto) {
     console.log(body);
   }
   @Get()
