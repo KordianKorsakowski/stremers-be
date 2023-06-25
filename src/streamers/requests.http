@@ -1,0 +1,18 @@
+### create stremaer 
+
+POST  http://localhost:3000/streamers
+Content-Type: application/json
+
+{
+    "name": "test",
+    "platfromType": "YouTube",
+    "description": "desc1111111desc"
+}
+### get list of streamers
+
+GET http://localhost:3000/streamers
+### get streamer
+GET http://localhost:3000/streamers/1
+### vote streamer
+
+PUT http://localhost:3000/streamers/1?vote=upvote
