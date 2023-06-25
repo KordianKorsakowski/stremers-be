@@ -10,8 +10,8 @@ export class Streamers {
     platfromType: string;
     @Column("varchar", { length: 250 })
     description: string;
-    @Column()
+    @Column({default: 0})
     upvote: number;
-    @Column()
+    @Column({default: 0})
     downvote: number;
 }

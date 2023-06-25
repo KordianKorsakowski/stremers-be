@@ -1,26 +1,32 @@
 import { Controller, Get, Post, Put, Body, Param, Query } from '@nestjs/common';
 import { CreateStreamerDto } from './dtos/create-streamer.dto';
+import { StreamersService } from './streamers.service';
+import { VoteType } from './types/types';
 
 @Controller('streamers')
 export class StreamersController {
+  constructor(private streamerService: StreamersService) {}
   @Post()
   createStreamer(@Body() body: CreateStreamerDto) {
     console.log(body);
+    this.streamerService.create(body);
   }
   @Get()
-  listStreamers() {
-    console.log('list');
+  async getlistStreamers() {
+    const list = await this.streamerService.getList();
+    console.log('list', list);
+    return list;
   }
   @Get('/:id')
-  getStreamer(@Param('id') id: string) {
-    console.log(id);
+  async getStreamer(@Param('id') id: string) {
+    const streamer = await this.streamerService.findOne(Number(id));
+    console.log(streamer);
+    return streamer;
   }
   @Put('/:id')
-  voteStreamer(
-    @Param('id') id: string,
-    @Query('vote') vote: 'upvote' | 'downvote',
-  ) {
-    console.log(id);
-    console.log(vote);
+  voteStreamer(@Param('id') id: string, @Query('vote') vote: VoteType) {
+    console.log(id, vote);
+    this.streamerService.update(Number(id), vote);
+    return 'success';
   }
 }
