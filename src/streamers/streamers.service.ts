@@ -1,9 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Streamers } from './streamers.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateStreamerDto } from './dtos/create-streamer.dto';
 import { VoteType } from './types/types';
+import { StreamerNotFound } from './exceptions/StreamerNotFound.exception';
 
 @Injectable()
 export class StreamersService {
@@ -15,7 +21,11 @@ export class StreamersService {
     return this.repo.save(streamer);
   }
   findOne(id: number) {
-    return this.repo.findOne({ where: { id } });
+    const streamer = this.repo.findOne({ where: { id } });
+    if (streamer) {
+      return streamer;
+    }
+    throw new StreamerNotFound();
   }
   async getList() {
     const list = await this.repo.find();
@@ -26,15 +36,17 @@ export class StreamersService {
   }
   async update(id: number, vote: VoteType) {
     const streamer = await this.findOne(id);
-    if (!streamer) {
-      throw new Error('Streamer not found');
+    console.log(streamer);
+    if (streamer) {
+      if (vote === 'upvote') {
+        Object.assign(streamer, { upvote: streamer.upvote + 1 });
+      }
+      if (vote === 'downvote') {
+        Object.assign(streamer, { downvote: streamer.downvote + 1 });
+      }
+      return this.repo.save(streamer);
+    } else {
+      throw new StreamerNotFound();
     }
-    if (vote === 'upvote') {
-      Object.assign(streamer, { upvote: streamer.upvote + 1 });
-    }
-    if (vote === 'downvote') {
-      Object.assign(streamer, { downvote: streamer.downvote + 1 });
-    }
-    return this.repo.save(streamer);
   }
 }

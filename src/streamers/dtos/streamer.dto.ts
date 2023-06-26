@@ -3,7 +3,7 @@ export class StreamerDto {
   @Expose()
   id: number;
   @Expose()
-  email: string;
+  name: string;
   @Expose()
   platfromType: string;
   @Expose()
@@ -20,7 +20,7 @@ export class StreamerFotListDto {
     @Expose()
     id: number;
     @Expose()
-    email: string;
+    name: string;
     @Expose()
     platfromType: string;
     @Expose()

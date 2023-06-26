@@ -12,7 +12,7 @@ Content-Type: application/json
 
 GET http://localhost:5000/streamers
 ### get streamer
-GET http://localhost:5000/streamers/1
+GET http://localhost:5000/streamers/100
 ### vote streamer +
 
 PUT http://localhost:5000/streamers/1?vote=upvote
