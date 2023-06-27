@@ -20,12 +20,13 @@ export class StreamersService {
     const streamer = this.repo.create(body);
     return this.repo.save(streamer);
   }
-  findOne(id: number) {
-    const streamer = this.repo.findOne({ where: { id } });
+  async findOne(id: number) {
+    const streamer = await this.repo.findOne({ where: { id } });
     if (streamer) {
       return streamer;
+    } else {
+      throw new StreamerNotFound();
     }
-    throw new StreamerNotFound();
   }
   async getList() {
     const list = await this.repo.find();

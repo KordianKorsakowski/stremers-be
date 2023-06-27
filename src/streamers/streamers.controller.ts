@@ -6,16 +6,12 @@ import {
   Body,
   Param,
   Query,
-  HttpException,
-  HttpStatus,
 } from '@nestjs/common';
 import { CreateStreamerDto } from './dtos/create-streamer.dto';
 import { StreamersService } from './streamers.service';
 import { VoteType } from './types/types';
 import { StreamerDto, StreamerFotListDto } from './dtos/streamer.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptors';
-import { StreamerNotFound } from './exceptions/StreamerNotFound.exception';
-
 @Controller('streamers')
 export class StreamersController {
   constructor(private streamerService: StreamersService) {}
@@ -34,12 +30,11 @@ export class StreamersController {
   @Serialize(StreamerDto)
   @Get('/:id')
   async getStreamer(@Param('id') id: string) {
-    return await this.streamerService.findOne(Number(id));
+    return await this.streamerService.findOne(Number(id))
   }
   @Put('/:id')
   voteStreamer(@Param('id') id: string, @Query('vote') vote: VoteType) {
     console.log(id, vote);
     return this.streamerService.update(Number(id), vote);
-  
   }
 }
