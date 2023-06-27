@@ -22,7 +22,7 @@ export class StreamersController {
   @Post()
   createStreamer(@Body() body: CreateStreamerDto) {
     console.log(body);
-    this.streamerService.create(body);
+    return this.streamerService.create(body);
   }
   @Serialize(StreamerFotListDto)
   @Get()
@@ -40,5 +40,6 @@ export class StreamersController {
   voteStreamer(@Param('id') id: string, @Query('vote') vote: VoteType) {
     console.log(id, vote);
     return this.streamerService.update(Number(id), vote);
+  
   }
 }
