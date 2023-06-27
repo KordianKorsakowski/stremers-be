@@ -21,12 +21,7 @@ export class StreamersService {
     return this.repo.save(streamer);
   }
   async findOne(id: number) {
-    const streamer = await this.repo.findOne({ where: { id } });
-    if (streamer) {
-      return streamer;
-    } else {
-      throw new StreamerNotFound();
-    }
+    return await this.repo.findOne({ where: { id } });
   }
   async getList() {
     const list = await this.repo.find();
@@ -37,7 +32,6 @@ export class StreamersService {
   }
   async update(id: number, vote: VoteType) {
     const streamer = await this.findOne(id);
-    console.log(streamer);
     if (streamer) {
       if (vote === 'upvote') {
         Object.assign(streamer, { upvote: streamer.upvote + 1 });
@@ -45,10 +39,7 @@ export class StreamersService {
       if (vote === 'downvote') {
         Object.assign(streamer, { downvote: streamer.downvote + 1 });
       }
-      this.repo.save(streamer);
-      return { statusCode: 200, message: 'Success' };
-    } else {
-      throw new StreamerNotFound();
+      return this.repo.save(streamer);
     }
   }
 }
