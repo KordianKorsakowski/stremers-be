@@ -15,7 +15,7 @@ GET http://localhost:5000/streamers
 GET http://localhost:5000/streamers/100
 ### vote streamer +
 
-PUT http://localhost:5000/streamers/1?vote=upvote
+PUT http://localhost:5000/streamers/aaa?vote=upvotes
 
 ### vote streamer -
 PUT http://localhost:5000/streamers/1?vote=downvote

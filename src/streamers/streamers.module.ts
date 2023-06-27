@@ -8,7 +8,8 @@ import { StreamersController } from './streamers.controller';
 import { StreamersService } from './streamers.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Streamers } from './streamers.entity';
-import { ValidateStreamersVoteMiddleware } from './middlewares/validate-streamersVote.middleware';
+import { ValidateVoteMiddleware } from './middlewares/validate-Vote.middleware';
+import { ValidateIdMiddleware } from './middlewares/validate-Id.middleware';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Streamers])],
@@ -18,7 +19,9 @@ import { ValidateStreamersVoteMiddleware } from './middlewares/validate-streamer
 export class StreamersModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(ValidateStreamersVoteMiddleware)
-      .forRoutes({ path: 'streamers/:id', method: RequestMethod.PUT });
+      .apply(ValidateVoteMiddleware, ValidateIdMiddleware)
+      .forRoutes({ path: 'streamers/:id', method: RequestMethod.PUT })
+      .apply(ValidateIdMiddleware)
+      .forRoutes({ path: 'streamers/:id', method: RequestMethod.GET });
   }
 }

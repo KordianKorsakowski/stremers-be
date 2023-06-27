@@ -40,6 +40,5 @@ export class StreamersController {
   voteStreamer(@Param('id') id: string, @Query('vote') vote: VoteType) {
     console.log(id, vote);
     return this.streamerService.update(Number(id), vote);
-    
   }
 }

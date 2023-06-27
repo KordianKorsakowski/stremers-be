@@ -44,7 +44,8 @@ export class StreamersService {
       if (vote === 'downvote') {
         Object.assign(streamer, { downvote: streamer.downvote + 1 });
       }
-      return this.repo.save(streamer);
+      this.repo.save(streamer);
+      return { statusCode: 200, message: 'Success' };
     } else {
       throw new StreamerNotFound();
     }
