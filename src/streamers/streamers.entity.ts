@@ -4,7 +4,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 export class Streamers {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column('varchar', { length: 80 })
+  @Column('varchar', { length: 30 })
   name: string;
   @Column()
   platfromType: string;
