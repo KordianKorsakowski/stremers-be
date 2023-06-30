@@ -7,7 +7,7 @@ Stack - Nest.js, sqlite3, typeorm, class-transformer, class-validator
 Please use the following link: [LINK](https://github.com/KordianKorsakowski/streamers-fe) to access the frontend part of the application. All the configuration information can be found in the readme file
 
 ### General Info
-The application allows for managing a simple database that stores information about streamers. You can find the list of requests in the request.http file(please remember to build and run the project)
+The application allows for managing a simple database that stores information about streamers. You can find the list of requests in the "src/streamers/request.http" file(please remember to build and run the project)
 ### Setup
 A simple backend application allowing communication on port 5000 was built using the NEST.js framework. The file structure reflects the pattern imposed by the framework's creators.
 
